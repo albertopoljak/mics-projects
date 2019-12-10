@@ -1,4 +1,3 @@
-import math
 from typing import Generator
 
 
@@ -16,7 +15,7 @@ def is_prime(number: int) -> bool:
         return False
 
     # You can loop up to including the square root of the number
-    for i in range(2, int(math.sqrt(number))+1):
+    for i in range(2, int(number**0.5)+1):
         if number % i == 0:
             return False
     return True
@@ -24,5 +23,8 @@ def is_prime(number: int) -> bool:
 
 if __name__ == "__main__":
     import cProfile
+    # Around 7.8s for checking first 1m numbers (i5-6600)
     cProfile.run("""for number in range(1000000): is_prime(number)""")
+    # Around 0.043s to check first n mersenne numbers in range of max exponent of 60
+    # (59 numbers generated last one is 1152921504606846975)
     cProfile.run("""for number in mersenne_generator(60): is_prime(number)""")
