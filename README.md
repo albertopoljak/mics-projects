@@ -1,2 +1,2 @@
 # mics-projects
-Old, abandonded or just sideprojects of mine
+Random Python code snippets that I coded.
