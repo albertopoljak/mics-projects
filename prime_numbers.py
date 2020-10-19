@@ -7,7 +7,7 @@ def get_mersenne_number(exponent: int) -> int:
 
 def mersenne_generator(max_exponent: int) -> Generator[int, None, None]:
     for i in range(1, max_exponent + 1):
-        yield(get_mersenne_number(i))
+        yield get_mersenne_number(i)
 
 
 def is_prime(number: int) -> bool:

@@ -1,16 +1,20 @@
-import sqlite3
 import random
+import sqlite3
 from pathlib import Path
 from string import digits, ascii_uppercase
 
 
 def create_database(database_path: str) -> sqlite3.Connection:
     conn = sqlite3.connect(database_path)
-    conn.execute("CREATE TABLE MEMBERS ("
-                 "MEMBER_ID TEXT PRIMARY KEY, "
-                 "EMAIL TEXT, "
-                 "PHONE TEXT )"
-                 )
+    conn.execute(
+        """
+        CREATE TABLE MEMBERS (
+            MEMBER_ID TEXT PRIMARY KEY,
+            EMAIL TEXT,
+            PHONE TEXT 
+        )
+        """
+    )
 
     for _ in range(3):
         add_random_member(conn)
@@ -79,8 +83,7 @@ def print_db(conn):
     print("Printing database table MEMBERS:")
     for row in rows:
         print("\t", dict(row))
-    # newline for pretty print
-    print()
+    print()  # newline for pretty print
 
 
 if __name__ == "__main__":
@@ -91,10 +94,12 @@ if __name__ == "__main__":
     print_db(connection)
 
     while True:
-        message = ("Enter 1 for querying with injection SAFE query. "
-                   "Enter 2 for querying with injection UNSAFE query. "
-                   "Exit to stop.\n"
-                   "Your input:")
+        message = (
+            "Enter 1 for querying with injection SAFE query. "
+            "Enter 2 for querying with injection UNSAFE query. "
+            "Exit to stop.\n"
+            "Your input:"
+        )
 
         user_input = input(message).lower()
         if user_input == "1":
@@ -107,7 +112,9 @@ if __name__ == "__main__":
             print("Unknown input..")
             continue
 
-        member_id_input = input("Enter member ID that you want to fetch data from. "
-                                "(to test vulnerability you can input '123 OR 1=1' without quotes)\n"
-                                "Your input:")
+        member_id_input = input(
+            "Enter member ID that you want to fetch data from. "
+            "(to test vulnerability you can input '123 OR 1=1' without quotes)\n"
+            "Your input:"
+        )
         print("Results:", query_method(member_id_input, connection), "\n")
