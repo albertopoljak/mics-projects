@@ -29,6 +29,16 @@ def is_prime(number: int) -> bool:
         return number == 2
 
 
+def test_is_prime() -> bool:
+    with open("primes.txt") as f:
+        primes = (int(x) for x in f.read().split(","))
+
+    for prime in primes:
+        if not is_prime(prime):
+            return False
+    return True
+
+
 if __name__ == "__main__":
     import cProfile
     # Around 2.12s for checking first 1m numbers (x64 CPython3.8 i5-4590S)
