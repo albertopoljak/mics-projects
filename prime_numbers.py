@@ -31,11 +31,17 @@ def is_prime(number: int) -> bool:
 
 def test_is_prime() -> bool:
     with open("primes.txt") as f:
-        primes = (int(x) for x in f.read().split(","))
+        primes = tuple(int(x) for x in f.read().split(","))
 
     for prime in primes:
         if not is_prime(prime):
             return False
+
+    not_primes = set(primes) ^ set(range(2, primes[-1] + 1))
+    for not_prime in not_primes:
+        if is_prime(not_prime):
+            return False
+
     return True
 
 
