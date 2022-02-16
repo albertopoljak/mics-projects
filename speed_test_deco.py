@@ -1,12 +1,12 @@
-"""High precision timing speed execution decorator."""
-from timeit import default_timer as timer
+from time import process_time
 
 
 def speed_test(func):
     def wrapper(*args, **kwargs):
-        start = timer()
+        start = process_time()
         func(*args, **kwargs)
-        print(f"{func.__name__} took {timer() - start} seconds.")
+        end = process_time()
+        print(f"{func.__name__} took {end - start} seconds.")
     return wrapper
 
 
